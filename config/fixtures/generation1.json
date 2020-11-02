@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "pokemon_species": [
+    { "name": "bulbasaur" },
+    { "name": "charmander" },
+    { "name": "squirtle" },
+    { "name": "caterpie" },
+    { "name": "weedle" },
+    { "name": "pidgey" },
+    { "name": "rattata" },
+    { "name": "spearow" },
+    { "name": "ekans" },
+    { "name": "sandshrew" },
+    { "name": "nidoran-f" },
+    { "name": "nidoran-m" },
+    { "name": "vulpix" },
+    { "name": "zubat" },
+    { "name": "oddish" },
+    { "name": "paras" }
+  ]
+}
