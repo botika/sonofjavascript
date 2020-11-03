@@ -77,6 +77,7 @@ const Table = styled.div`
   align-items: center;
   flex-wrap: wrap;
   max-width: 1920px;
+  min-width: 80%;
 `;
 
 const Section = styled.section`
