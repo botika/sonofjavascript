@@ -34,6 +34,6 @@ export default function Theme({ children }: Props) {
 
 export const GlobalStyle = createGlobalStyle`
 body {
-color: ${({ theme }) => theme.color}
+  color: ${({ theme }) => theme.color}
 }
-    `;
+`;
