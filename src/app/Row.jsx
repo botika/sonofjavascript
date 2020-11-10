@@ -40,6 +40,7 @@ export const Article = styled.article`
   border: ${({ theme }) => theme.card.border} solid 1px;
   cursor: pointer;
   overflow: hidden;
+  text-overflow: ellipsis;
   &:hover {
     background: ${({ theme }) => theme.card.hover};
   }
