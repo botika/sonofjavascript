@@ -27,9 +27,6 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test -- --coverage
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          start: npm run start:e2e
+      - run: npm run e2e
       - run: npm run cover:merge && npm run cover:report
       - run: npm run cover:codecov

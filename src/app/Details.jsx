@@ -1,96 +1,74 @@
 // @flow
-import React, { useCallback, useEffect, useReducer } from "react";
+import React, { useCallback } from "react";
 import { useHistory, useParams } from "react-router";
 
 import styled from "styled-components";
-
-import {
-  errAction,
-  INIT_DATA,
-  okAction,
-  onAction,
-  reducer,
-  State,
-} from "app/fetchReducer";
 import { byName, PokemonDetails } from "api/pokemonDetails";
+import { useQuery } from "react-query";
 
 export default function Details() {
   const { name } = useParams();
   const history = useHistory();
-  const onClick = useCallback(() => history.push(`/`), [history]);
-  const [{ on, error, response }, dispatch] = useReducer<State<PokemonDetails>>(
-    reducer,
-    INIT_DATA
+  const onClick = useCallback(() => history.push("/"), [history]);
+  const { data, isLoading, error } = useQuery(`details-${name}`, () =>
+    byName(name)
   );
-  useEffect(() => {
-    dispatch(onAction);
-    byName(name).then(
-      (r) => dispatch(okAction(r)),
-      (e) => dispatch(errAction(e))
-    );
-  }, [dispatch, name]);
 
-  if (on) {
-    return <div>Loading</div>;
-  }
-  if (response) {
-    const {
-      abilities,
-      height,
-      id,
-      name: pokemonName,
-      types,
-    }: PokemonDetails = response;
-    return (
-      <MainCard>
-        <Card>
-          <Close
-            onClick={(event) => {
-              event.preventDefault();
-              onClick();
-            }}
-          >
-            x
-          </Close>
-          <ImgContainer>
-            <Image
-              src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${name}.gif`}
-              alt={name}
-            />
-          </ImgContainer>
-          <Name>{pokemonName}</Name>
-          <DetailBox>
-            <p>
-              <b>ID:</b> {id}
-            </p>
-            <PList>
-              <b>Types:</b>
-            </PList>
-            <List>
-              {types.map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </List>
-            <p>
-              <b>Height:</b> {height}
-            </p>
-            <PList>
-              <b>Abilities:</b>
-            </PList>
-            <List>
-              {abilities.map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </List>
-          </DetailBox>
-        </Card>
-      </MainCard>
-    );
-  }
-  if (error) {
-    return <div>{error}</div>;
-  }
-  return null;
+  if (isLoading) return <div>Loading</div>;
+  if (error) return <div>{error.message}</div>;
+
+  const {
+    abilities,
+    height,
+    id,
+    name: pokemonName,
+    types,
+  }: PokemonDetails = data;
+  return (
+    <MainCard>
+      <Card>
+        <Close
+          onClick={(event) => {
+            event.preventDefault();
+            onClick();
+          }}
+        >
+          x
+        </Close>
+        <ImgContainer>
+          <Image
+            src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${name}.gif`}
+            alt={name}
+          />
+        </ImgContainer>
+        <Name>{pokemonName}</Name>
+        <DetailBox>
+          <p>
+            <b>ID:</b> {id}
+          </p>
+          <PList>
+            <b>Types:</b>
+          </PList>
+          <List>
+            {types.map((x) => (
+              <li key={x}>{x}</li>
+            ))}
+          </List>
+          <p>
+            <b>Height:</b> {height}
+          </p>
+          <PList>
+            <b>Abilities:</b>
+          </PList>
+          <List>
+            {abilities.map((x) => (
+              <li key={x}>{x}</li>
+            ))}
+          </List>
+        </DetailBox>
+      </Card>
+    </MainCard>
+  );
 }
 
 const PList = styled.p`
