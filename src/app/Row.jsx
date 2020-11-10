@@ -19,7 +19,10 @@ export default function Row({ name }: Pokemon) {
       }}
     >
       <ImgContainer>
-        <Img src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${name}.gif`} alt={name} />
+        <Img
+          src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${name}.gif`}
+          alt={name}
+        />
       </ImgContainer>
       <Name>{name}</Name>
     </Article>
@@ -36,6 +39,7 @@ export const Article = styled.article`
   border-radius: 5px;
   border: ${({ theme }) => theme.card.border} solid 1px;
   cursor: pointer;
+  overflow: hidden;
   &:hover {
     background: ${({ theme }) => theme.card.hover};
   }
