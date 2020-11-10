@@ -39,3 +39,17 @@ context("Actions", () => {
     cy.contains("bulbasaur").should("be.visible");
   });
 });
+
+context("Errors", () => {
+  it("Generation request", () => {
+    cy.server({
+      delay: 1000,
+      status: 400,
+      response: {},
+    });
+    cy.route("GET", "https://pokeapi.co/api/v2/generation/*");
+    cy.visit("/");
+    cy.contains("Loading");
+    cy.contains("Request failed with status code 400");
+  });
+});
