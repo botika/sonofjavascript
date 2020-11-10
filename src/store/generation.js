@@ -7,7 +7,7 @@ const OK = "OK GENERATION FETCH";
 const ERR = "ERROR GENERATION FETCH";
 
 // Action for get generation information
-export function getGeneration(request: Promise<[Pokemon]>) {
+export function getGeneration(request: Promise<Pokemon[]>) {
   return (dispatch) => {
     dispatch({ type: ON });
 
@@ -18,8 +18,14 @@ export function getGeneration(request: Promise<[Pokemon]>) {
   };
 }
 
-export const INIT_DATA = { on: false };
-const ON_FETCH = { on: true };
+export type State = {
+  on: boolean,
+  response?: Pokemon[],
+  error?: string,
+};
+
+export const INIT_DATA: State = { on: false };
+const ON_FETCH: State = { on: true };
 
 // Reducer
 export function reducer(state = INIT_DATA, action) {

@@ -1,3 +1,4 @@
+// @flow
 import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +10,14 @@ import { byId } from "api/generation";
 
 import Row, { Article } from "app/Row";
 
-import { getGeneration } from "store/generation";
+import { getGeneration, State } from "store/generation";
 
 import logo from "img/pokemon-logo.png";
 
 export default function Container() {
   // Input filter query
   const [query, setQuery] = useState(new RegExp());
-  const { on, response, error } = useSelector(
+  const { on, response, error }: State = useSelector(
     ({ generation }) => generation,
     shallowequal
   );
